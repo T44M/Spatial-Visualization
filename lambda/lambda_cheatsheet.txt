@@ -1,0 +1,21 @@
+# ローカルでrequirements.txtを作成し、依存関係を記載
+influxDB
+
+# 仮想環境を作成
+python -m venv venv
+
+# 仮想環境をアクティブ
+.\venv\Scripts\Activate
+
+# requirements.txtに記載された依存関係のインストール
+pip install -r requirements.txt
+
+# lambda_function.pyをpackageに移動させる。
+pip install -r requirements.txt -t package
+cp lambda_function.py package/
+
+# Zipファイルの作成
+cd package
+Compress-Archive -Path * -DestinationPath ..\lambda_package.zip
+
+# LambdaにZipごとアップロードさせ完了
